@@ -2,8 +2,8 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = process.env.PORT
-const { QuickDB } = require("quick.db");
-const db = new QuickDB(); // will make a json.sqlite in the root folder
+const { Database } = require('@devsnowflake/quick.db');
+const db = new Database('./json2.sqlite', { path: './', table: 'JSON' })
 
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
