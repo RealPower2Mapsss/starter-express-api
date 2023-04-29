@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = process.env.PORT
+const token = process.env.TOKEN
 
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -37,7 +38,7 @@ client.on('interactionCreate', async interaction => {
   }
 });
 
-client.login(process.env.TOKEN);
+client.login(token);
 
 
 app.get('/', (req, res) => {
@@ -52,6 +53,5 @@ app.get('/db', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-  console.log(process.env.TOKEN)
 })
 
