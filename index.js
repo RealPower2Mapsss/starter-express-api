@@ -2,8 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const port = process.env.PORT
-const { Database } = require('@devsnowflake/quick.db');
-const db = new Database('./json2.sqlite', { path: './', table: 'JSON' })
 
 const { Client, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -21,6 +19,7 @@ client.on('interactionCreate', async interaction => {
   if (interaction.commandName === 'set') {
     var key = interaction.options.getString('key')
     var value = interaction.options.getString('value')
+    return await interaction.reply("Database disabled.")
     try {
         await db.set(key, value)
     } catch (error) {
@@ -31,7 +30,8 @@ client.on('interactionCreate', async interaction => {
   }
   if (interaction.commandName === 'check') {
     var input = interaction.options.getString('input')
-    var result = await db.get(input)
+    var result;
+    //var result = await db.get(input)
     if(!result) result = "Not found :x:"
     await interaction.reply('Result: '+ result);
   }
@@ -45,7 +45,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/db', async (req, res) => {
-    var data = await db.all()
+    var data = "a"
+    //var data = await db.all()
     res.send(data)
   })
 
